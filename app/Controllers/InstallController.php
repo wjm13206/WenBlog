@@ -302,7 +302,6 @@ final class InstallController extends Controller
             ['label' => 'PDO MySQL 扩展', 'ok' => extension_loaded('pdo_mysql'), 'detail' => '用于连接 MySQL', 'required' => true],
             ['label' => 'mbstring 扩展', 'ok' => extension_loaded('mbstring'), 'detail' => '处理中文与多字节文本', 'required' => true],
             ['label' => 'JSON 扩展', 'ok' => extension_loaded('json'), 'detail' => '主题与插件配置', 'required' => true],
-            ['label' => 'Fileinfo 扩展', 'ok' => extension_loaded('fileinfo'), 'detail' => '上传文件类型校验', 'required' => true],
             ['label' => 'Session 支持', 'ok' => extension_loaded('session'), 'detail' => '登录与安全令牌', 'required' => true],
             
             ['label' => 'ZipArchive 扩展', 'ok' => $zip, 'detail' => '在线安装主题和插件（可选）', 'required' => false],

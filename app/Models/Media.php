@@ -83,26 +83,30 @@ final class Media
             throw new RuntimeException('上传文件校验失败。');
         }
 
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = $finfo !== false ? (string) finfo_file($finfo, $tmp) : '';
-        if ($finfo !== false) {
-            finfo_close($finfo);
-        }
-        $allowedMimes = [
-            'jpg'  => ['image/jpeg'],
-            'jpeg' => ['image/jpeg'],
-            'png'  => ['image/png'],
-            'gif'  => ['image/gif'],
-            'webp' => ['image/webp'],
-            'pdf'  => ['application/pdf'],
+        $mimeMap = [
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png'  => 'image/png',
+            'gif'  => 'image/gif',
+            'webp' => 'image/webp',
+            'bmp'  => 'image/bmp',
+            'avif' => 'image/avif',
+            'ico'  => 'image/x-icon',
+            'pdf'  => 'application/pdf',
+            'txt'  => 'text/plain',
+            'md'   => 'text/markdown',
+            'csv'  => 'text/csv',
+            'zip'  => 'application/zip',
+            'mp3'  => 'audio/mpeg',
+            'wav'  => 'audio/wav',
+            'mp4'  => 'video/mp4',
+            'webm' => 'video/webm',
         ];
-        if (!in_array($mime, $allowedMimes[$extension] ?? [], true)) {
-            throw new RuntimeException('文件内容与扩展名不匹配。');
-        }
+        $mime = $mimeMap[$extension] ?? 'application/octet-stream';
 
         $width = null;
         $height = null;
-        if (str_starts_with($mime, 'image/')) {
+        if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'avif'], true)) {
             $info = @getimagesize($tmp);
             if ($info === false) {
                 throw new RuntimeException('无法读取图片信息。');

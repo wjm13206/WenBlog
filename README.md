@@ -8,7 +8,7 @@ WenBlog 是一个从零实现的轻量级博客 CMS
 ## 环境要求
 
 - PHP 8.2 或更高版本
-- 扩展：`pdo_mysql`、`mbstring`、`json`、`fileinfo`、`session`
+- 扩展：`pdo_mysql`、`mbstring`、`json`、`session`
 - 可选：`ZipArchive`（后台上传主题 / 插件 ZIP 时需要）
 - MySQL 5.7 或更高版本（MariaDB 10.2+ 亦可）
 - Apache（启用 `mod_rewrite`）或 Nginx + PHP-FPM
@@ -402,7 +402,7 @@ index.php          # 唯一前台入口
 - 文章 Markdown 中的原始 HTML 会被转义；链接协议经过白名单检查。
 - 密码使用 `password_hash()`（bcrypt/argon 由 PHP 默认算法决定）。
 - 登录失败按 IP 与账号限流，记录在 `login_attempts`。
-- 上传文件同时校验扩展名、真实 MIME 与图片尺寸，并拒绝可执行类型。
+- 上传文件按后台配置的扩展名白名单过滤，并校验图片尺寸；`uploads/` 目录禁止执行 PHP。
 - `app/`、`config/`、`storage/`、主题与插件 PHP 文件均有服务器层保护。
 - 生产环境请使用 HTTPS，并保持 `app.debug` 为 `false`。
 
