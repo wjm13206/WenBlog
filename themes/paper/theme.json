@@ -1,0 +1,24 @@
+{
+    "name": "Paper",
+    "slug": "paper",
+    "version": "1.0.0",
+    "description": "纸张质感的极简阅读主题：暖白底色、全衬线排版，适合散文、随笔与长文。",
+    "author": "WenBlog",
+    "config": {
+        "accent_color": {
+            "type": "color",
+            "label": "强调色",
+            "default": "#9a3412"
+        },
+        "show_sidebar": {
+            "type": "checkbox",
+            "label": "显示侧边栏",
+            "default": "0"
+        },
+        "footer_note": {
+            "type": "text",
+            "label": "页脚补充文字",
+            "default": "慢慢写，慢慢读。"
+        }
+    }
+}

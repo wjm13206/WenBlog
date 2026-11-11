@@ -1,0 +1,40 @@
+# WenBlog — Apache configuration
+# Place this file in the site root. AllowOverride must include FileInfo,
+# or move the rewrite rules into the virtual host configuration.
+
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block private application directories even if they are requested directly.
+    RewriteRule ^(app|config|storage)(/|$) - [F,L]
+
+    # Send the installer directory through the front controller.
+    RewriteRule ^install/?$ index.php [L]
+
+    # Serve existing files (assets, uploads) directly.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Everything else is routed through the application.
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

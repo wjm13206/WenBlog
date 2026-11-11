@@ -1,0 +1,14 @@
+{
+    "name": "阅读进度",
+    "description": "在文章页顶部显示一条轻量的阅读进度条，可选择显示百分比。",
+    "version": "1.0.0",
+    "author": "WenBlog",
+    "main": "plugin.php",
+    "config": {
+        "show_percentage": {
+            "type": "checkbox",
+            "label": "显示阅读百分比",
+            "default": "0"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "name": "版权声明",
+    "description": "在文章正文末尾自动附加一段可配置的版权声明与原文链接。",
+    "version": "1.0.0",
+    "author": "WenBlog",
+    "main": "plugin.php",
+    "config": {
+        "notice": {
+            "type": "textarea",
+            "label": "版权声明内容",
+            "default": "本文为原创内容，转载请注明作者与出处。"
+        },
+        "show_source": {
+            "type": "checkbox",
+            "label": "显示原文链接",
+            "default": "1"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "Default",
+    "slug": "default",
+    "version": "1.0.0",
+    "description": "清爽的编辑风格主题：衬线标题、留白充足，适合以阅读为中心的个人博客。",
+    "author": "WenBlog",
+    "config": {
+        "accent_color": {
+            "type": "color",
+            "label": "强调色",
+            "default": "#4f46e5"
+        },
+        "show_sidebar": {
+            "type": "checkbox",
+            "label": "在文章列表和文章页显示侧边栏",
+            "default": "1"
+        },
+        "footer_note": {
+            "type": "text",
+            "label": "页脚补充文字",
+            "default": ""
+        }
+    }
+}
