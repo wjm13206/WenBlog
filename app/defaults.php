@@ -37,4 +37,6 @@ return [
     'active_theme'         => 'default',
     'maintenance_mode'     => '0',
     'app_version'          => '1.0.0',
+    'update_repository'    => '',
+    'update_manifest'      => '',
 ];

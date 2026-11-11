@@ -6,6 +6,8 @@
 !/storage/logs/.gitkeep
 /storage/backups/*
 !/storage/backups/.gitkeep
+/storage/updates/*
+!/storage/updates/.gitkeep
 /uploads/*
 !/uploads/.gitkeep
 .DS_Store

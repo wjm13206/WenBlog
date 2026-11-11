@@ -64,6 +64,7 @@ $isDashboard = $app->request->path() === '/admin';
                 <span class="nav-label">系统</span>
                 <a class="nav-link <?= e(is_active('/admin/users')) ?>" href="<?= e(admin_url('users')) ?>"><?= icon('users') ?><span>用户</span></a>
                 <a class="nav-link <?= e(is_active('/admin/settings')) ?>" href="<?= e(admin_url('settings')) ?>"><?= icon('settings') ?><span>设置</span></a>
+                <a class="nav-link <?= e(is_active('/admin/update')) ?>" href="<?= e(admin_url('update')) ?>"><?= icon('refresh') ?><span>系统更新</span></a>
             </div>
             <?php endif; ?>
         </nav>

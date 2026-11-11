@@ -17,6 +17,7 @@ use App\Controllers\Admin\ProfileController;
 use App\Controllers\Admin\SettingController;
 use App\Controllers\Admin\TagController as AdminTagController;
 use App\Controllers\Admin\ThemeController;
+use App\Controllers\Admin\UpdateController;
 use App\Controllers\Admin\UserController;
 use App\Controllers\ApiController;
 use App\Controllers\ArchiveController;
@@ -325,6 +326,13 @@ final class App
         $r->get('/admin/profile', [ProfileController::class, 'index'], ['auth' => true]);
         $r->post('/admin/profile', [ProfileController::class, 'update'], ['auth' => true]);
         $r->post('/admin/cache/clear', [SettingController::class, 'clearCache'], ['auth' => true, 'admin' => true]);
+
+        // System update
+        $r->get('/admin/update', [UpdateController::class, 'index'], ['auth' => true, 'admin' => true]);
+        $r->post('/admin/update/check', [UpdateController::class, 'check'], ['auth' => true, 'admin' => true]);
+        $r->post('/admin/update/apply', [UpdateController::class, 'apply'], ['auth' => true, 'admin' => true]);
+        $r->post('/admin/update/upload', [UpdateController::class, 'upload'], ['auth' => true, 'admin' => true]);
+        $r->post('/admin/update/source', [UpdateController::class, 'source'], ['auth' => true, 'admin' => true]);
 
         // Front-end
         $r->get('/', [HomeController::class, 'index']);

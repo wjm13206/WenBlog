@@ -395,6 +395,55 @@ uploads/           # 上传文件（需可写）
 index.php          # 唯一前台入口
 ```
 
+## 系统更新
+
+管理员可以在侧边栏「系统更新」（`/admin/update`）检查并安装 WenBlog 核心更新。更新只覆盖核心文件，不会改动 `config/`、`storage/`、`uploads/`、`themes/` 与 `plugins/`。
+
+### 检查与安装
+
+- **检查更新**：读取更新源的最新版本，与当前 `app_version` 比较。
+- **在线更新**：下载更新包并覆盖核心文件。安装前会备份到 `storage/updates/`，失败时尝试恢复备份。
+- **手动上传**：服务器无法访问外网时，上传更新包 ZIP 即可。压缩包中应包含 `index.php` 与 `app/Core/App.php`，允许外层再套一层目录；版本号可自动从 `version.json` 或 `app/defaults.php` 读取。
+- 更新期间使用文件锁，避免多个请求同时写入。
+
+### 更新源
+
+默认使用 GitHub 仓库 `wjm13206/WenBlog`：
+
+1. 优先读取最新 Release，使用其中的 `.zip` 附件或 `zipball_url`。
+2. 没有 Release 时读取 Tags，选择版本号最高的标签，下载对应源码包。
+3. 都没有时提示手动上传。
+
+也可以填写自定义 JSON 清单地址，格式如下：
+
+```json
+{
+    "version": "1.2.0",
+    "download": "https://example.com/wenblog-1.2.0.zip",
+    "changelog": "本次更新内容……",
+    "published_at": "2026-11-11"
+}
+```
+
+其中 `version` 必填，`download` 为空时只能手动上传。GitHub 与自定义清单地址均只允许 http/https，并会拒绝指向内网或保留地址的请求。
+
+### 数据库迁移
+
+更新包可以包含 `install/migrations/*.sql`。安装时会按文件名排序执行尚未记录的脚本，已执行的名称保存在 options 表的 `app_migrations` 中。迁移只应包含可重复执行的增量语句。
+
+### 发布新版本
+
+1. 修改 `app/defaults.php` 中的 `app_version`，并同步根目录 `version.json`。
+2. 提交并打标签（如 `v1.2.0`），或创建带 ZIP 附件的 Release。
+3. 更新包至少包含 `index.php`、`app/`、`assets/`，建议同时包含 `install/`、`README.md` 与 `version.json`。
+
+### 目录与权限
+
+- 备份、临时文件、下载包与 `history.json` 位于 `storage/updates/`，需要可写。
+- 在线更新需要 PHP `zip` 扩展，并允许访问 GitHub 或自定义更新源；否则请使用手动上传。
+- 若检查更新提示 SSL 证书错误（如 `unable to get local issuer certificate`），请为 PHP 配置 `curl.cainfo` 与 `openssl.cafile` 指向 CA 证书包，或改用更新包手动升级。
+- 后台「环境检查」会列出核心路径的可写状态，更新前请确认全部为可写。
+
 ## 安全说明
 
 - 所有数据库访问使用 PDO 预处理；动态表名 / 条件均来自内部白名单。

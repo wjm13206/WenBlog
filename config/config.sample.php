@@ -18,6 +18,10 @@ return [
         'key'     => '',
         'debug'   => false,
         'version' => '1.0.0',
+        // 在线更新源：GitHub 仓库（owner/repo）或自定义 JSON 清单地址。
+        // 清空仓库则回退到 wjm13206/WenBlog；清单地址非空时优先使用清单。
+        'update_repo'     => 'wjm13206/WenBlog',
+        'update_manifest' => '',
         'installed_at' => null,
     ],
 ];

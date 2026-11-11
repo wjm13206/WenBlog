@@ -800,6 +800,36 @@ a.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); bord
     .config-savebar-actions .btn { flex: 1; justify-content: center; }
 }
 
+/* ==========================================================================
+   Updates
+   ========================================================================== */
+
+.update-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 40px; padding: 20px; }
+.update-version { display: flex; flex-direction: column; gap: 2px; }
+.update-version-label { font-size: 10.5px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.update-version strong { font-size: 21px; font-weight: 750; letter-spacing: -.03em; }
+.update-version.is-new strong { color: var(--primary); }
+.update-summary-state { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; font-size: 11.5px; }
+.update-changelog { max-height: 320px; overflow-y: auto; padding-right: 6px; font-size: 12.5px; line-height: 1.7; color: var(--text-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
+.update-action { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.update-action > div { min-width: 0; }
+.update-action p { margin-top: 4px; font-size: 12.5px; }
+.update-action form { margin: 0; }
+.update-paths { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 8px 22px; }
+.update-path { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 10px; border-radius: 8px; background: var(--surface-2); }
+.update-path code { font-size: 11.5px; }
+.update-path > span { display: inline-flex; align-items: center; gap: 8px; }
+.update-path .badge svg.icon { width: 11px; height: 11px; }
+.update-path small { font-size: 10.5px; }
+
+@media (max-width: 720px) {
+    .update-summary { gap: 14px 24px; }
+    .update-summary-state { margin-left: 0; align-items: flex-start; }
+    .update-action { flex-direction: column; align-items: stretch; }
+    .update-action .btn { justify-content: center; }
+    .update-paths { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
