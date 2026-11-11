@@ -241,6 +241,9 @@ final class App
         // Authentication
         $r->get('/admin/login', [AuthController::class, 'showLogin']);
         $r->post('/admin/login', [AuthController::class, 'login']);
+        // 后台侧边栏通过 POST 表单退出；同时接受 GET，方便直接访问
+        // /admin/logout 时也能正常退出，而不是返回 405。
+        $r->get('/admin/logout', [AuthController::class, 'logout'], ['auth' => true]);
         $r->post('/admin/logout', [AuthController::class, 'logout'], ['auth' => true]);
 
         // Dashboard
