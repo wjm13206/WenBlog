@@ -1,0 +1,14 @@
+{
+    "name": "Typecho 数据迁移",
+    "description": "自动检测当前数据库中的 Typecho 数据表，把文章、页面、分类、标签与评论迁移到 WenBlog。",
+    "version": "1.0.0",
+    "author": "WenBlog",
+    "main": "plugin.php",
+    "config": {
+        "table_prefix": {
+            "type": "text",
+            "label": "数据表前缀（留空自动检测）",
+            "default": ""
+        }
+    }
+}

@@ -309,6 +309,9 @@ final class App
         $r->post('/admin/plugins/upload', [PluginController::class, 'upload'], ['auth' => true, 'admin' => true]);
         $r->post('/admin/plugins/delete', [PluginController::class, 'delete'], ['auth' => true, 'admin' => true]);
 
+        // Active plugins may register their own admin routes.
+        Hook::do('app.routes', $r);
+
         // Links
         $r->get('/admin/links', [LinkController::class, 'index'], ['auth' => true, 'admin' => true]);
         $r->post('/admin/links', [LinkController::class, 'store'], ['auth' => true, 'admin' => true]);

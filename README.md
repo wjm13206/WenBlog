@@ -315,7 +315,36 @@ Hook::add('post.html', static function (string $html, array $post): string {
 }, 20);
 ```
 
-内置插件 `reading-time`（阅读进度条）和 `copyright`（版权声明）可作为参考。
+内置插件 `reading-time`（阅读进度条）、`copyright`（版权声明）和 `typecho-migrate`（Typecho 数据迁移）可作为参考。
+
+插件还可以注册后台页面，并在插件卡片上添加入口：
+
+```php
+use App\Core\Hook;
+use App\Core\Router;
+
+Hook::add('app.routes', static function (Router $router): void {
+    $router->get('/admin/plugins/my-plugin', [MyController::class, 'index'], ['auth' => true, 'admin' => true]);
+});
+
+Hook::add('admin.plugins.actions', static function (array $plugin): void {
+    if ($plugin['slug'] === 'my-plugin') {
+        echo '<a class="btn btn-ghost btn-sm" href="' . e(admin_url('plugins/my-plugin')) . '">打开</a>';
+    }
+});
+```
+
+插件自带视图可以用 `$app->view->renderFile()` 渲染，并套用后台布局。
+
+### Typecho 数据迁移
+
+内置插件 `typecho-migrate` 会自动检测当前数据库中的 Typecho 表（默认前缀 `typecho_`），在后台“插件 → Typecho 数据迁移 → 迁移工具”中查看检测结果并执行迁移。
+
+- 支持文章、独立页面、草稿、分类层级、标签、评论与回复。
+- 作者按邮箱或用户名匹配现有用户，未匹配时归入页面中选择的作者；不会创建新用户。
+- 私密/隐藏内容作为草稿导入；HTML 正文会自动转换为 Markdown。
+- 迁移进度记录在 `typecho_migrate_map` 表中，重复执行不会产生重复内容。
+- 附件文件与自定义字段不会复制，需要手动同步 Typecho 的 `usr/uploads` 目录。
 
 ## REST API
 

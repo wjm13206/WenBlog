@@ -46,6 +46,7 @@
                         <?php if (($plugin['config_fields'] ?? []) !== []): ?>
                             <button class="btn btn-ghost btn-sm" type="button" data-toggle-panel="plugin-config-<?= e($plugin['slug']) ?>"><?= icon('sliders', 15) ?> 配置</button>
                         <?php endif; ?>
+                        <?php \App\Core\Hook::do('admin.plugins.actions', $plugin); ?>
                         <form method="post" action="<?= e(admin_url('plugins/delete')) ?>" data-confirm="确定删除插件「<?= e($plugin['name']) ?>」吗？插件文件会被移除。">
                             <?= csrf_field() ?>
                             <input type="hidden" name="slug" value="<?= e($plugin['slug']) ?>">

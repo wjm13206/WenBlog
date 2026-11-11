@@ -39,6 +39,28 @@ final class View
         return $this->capture($layoutFile, $data);
     }
 
+    /**
+     * Render a view file from an arbitrary location, optionally wrapped in a
+     * core layout. Plugins use this to ship their own admin screens.
+     *
+     * @param array<string, mixed> $data
+     */
+    public function renderFile(string $file, array $data = [], ?string $layout = null): string
+    {
+        $data['app'] = $this->app;
+        $content = $this->capture($file, $data);
+        if ($layout === null || $layout === '') {
+            return $content;
+        }
+        $data['content'] = $content;
+        $layoutFile = $this->viewPath($layout);
+        if (!is_file($layoutFile)) {
+            throw new RuntimeException('Layout not found: ' . $layout);
+        }
+
+        return $this->capture($layoutFile, $data);
+    }
+
     /** @param array<string, mixed> $data */
     public function capture(string $file, array $data = []): string
     {
